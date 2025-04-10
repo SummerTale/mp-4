@@ -1,4 +1,9 @@
-export async function getRates() {
+type RatesResponse={
+  base: string;
+  date:string;
+  rates: Record<string, number>;
+}
+export async function getRates() :Promise<RatesResponse> {
     try {
       const res = await fetch(`http://data.fixer.io/api/latest?access_key=${process.env.FIXER_API_KEY}`);
   
@@ -19,7 +24,7 @@ export async function getRates() {
         date: data.date,
         rates: data.rates,
       };
-    } catch (err: any) {
+    } catch (err:any) {
       throw new Error(`Error fetching exchange rates: ${err.message}`);
     }
   }
